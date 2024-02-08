@@ -139,11 +139,12 @@ class PlayList {
      * does nothing and returns -1.
      */
     public void remove(int i) {
-        for (int j = i; j < size-1; j++) {
-            this.tracks[j] = this.tracks[j + 1];
+        if (i<size-1&&i>=0) {
+            for (int j = i; j < size - 1; j++) {
+                this.tracks[j] = this.tracks[j + 1];
+            }
+            size--;
         }
-        size--;
-
     }
 
     /**
