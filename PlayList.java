@@ -73,22 +73,18 @@ class PlayList {
      */
     //// For an efficient implementation, use StringBuilder.
         public String toString() {
-            StringBuilder sb = new  StringBuilder();
-            sb.append("\n");
-            for (int i = 0; i < size; i++) {
-                sb.append(tracks[i].toString());
-                sb.append("\n");
-            }
-            return sb.toString();
+
+            return null;
         }
-    
+
 
     /**
      * Removes the last track from this list. If the list is empty, does nothing.
      */
     public void removeLast() {
         if (getSize() > 0) {
-            remove(getSize() - 1);
+            tracks[size-1]=null;
+            size--;
         }
     }
 
@@ -130,11 +126,15 @@ class PlayList {
      * returns true.
      */
     public boolean add(int i, Track track) {
-        if (add(track) && i <= size) {
-            this.tracks[i] = track;
-            for (int j = i + 1; j < size; j++) {
-                this.tracks[j] = this.tracks[j + 1];
+        if (i >= 0 && i <= size && add(track)) {
+            // Shift elements to make room for the new track at index i
+            for (int j = size - 1; j > i; j--) {
+                this.tracks[j] = this.tracks[j - 1];
             }
+
+            // Insert the new track at index i
+            this.tracks[i] = track;
+            return true;
         }
         return false;
     }
@@ -182,20 +182,16 @@ class PlayList {
      */
     //// An elegant and terribly inefficient implementation.
     public void add(PlayList other) {
-        if (other.size + size >= other.getMaxSize() + maxSize) {
+        int totalSize = size + other.getSize();
 
-            Track[] newTracks = new Track[getTracks().length + other.getTracks().length];
+        if ( totalSize<=maxSize) {
+
             int count = 0;
-            for (int i = 0; i < newTracks.length; i++) {
-                if (i < getTracks().length) {
-                    newTracks[i] = getTracks()[i];
-                } else {
-                    newTracks[i] = other.getTracks()[count];
-                    count++;
-                }
+            for (int i = size; i < totalSize; i++) {
+              this.tracks[i]=other.getTracks()[count];
+                count++;
             }
-            setTracks(newTracks);
-            setSize(getSize() + other.getSize());
+            setSize(totalSize);
         }
     }
 
