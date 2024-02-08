@@ -139,7 +139,7 @@ class PlayList {
      * does nothing and returns -1.
      */
     public void remove(int i) {
-        if (i<size-1&&i>=0) {
+        if (i<size&&i>=0&&size!=0) {
             for (int j = i; j < size - 1; j++) {
                 this.tracks[j] = this.tracks[j + 1];
             }
@@ -165,7 +165,7 @@ class PlayList {
      * Removes the first track from this list. If the list is empty, does nothing.
      */
     public void removeFirst() {
-        if (getSize() > 0) {
+        if (size > 0) {
             remove(0);
         }
     }
@@ -176,7 +176,7 @@ class PlayList {
      */
     //// An elegant and terribly inefficient implementation.
     public void add(PlayList other) {
-        if (other.size + getSize() >= other.getMaxSize() + getMaxSize()) {
+        if (other.size + size >= other.getMaxSize() + maxSize) {
 
             Track[] newTracks = new Track[getTracks().length + other.getTracks().length];
             int count = 0;
