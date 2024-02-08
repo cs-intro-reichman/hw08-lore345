@@ -124,10 +124,10 @@ class PlayList {
      * returns true.
      */
     public boolean add(int i, Track track) {
-        if (add(track)&&i<=size){
-            this.tracks[i]=track;
-            for (int j = i+1; j <size ; j++) {
-                this.tracks[j]=this.tracks[j+1];
+        if (add(track) && i <= size) {
+            this.tracks[i] = track;
+            for (int j = i + 1; j < size; j++) {
+                this.tracks[j] = this.tracks[j + 1];
             }
         }
         return false;
@@ -139,18 +139,9 @@ class PlayList {
      * does nothing and returns -1.
      */
     public void remove(int i) {
-        Track[] tracks1 = new Track[getTracks().length - 1];
-        int newIndex = 0;
-
-        for (int j = 0; j < getTracks().length; j++) {
-            // Skip the element at index i
-            if (j != i) {
-                tracks1[newIndex++] = getTracks()[j];
-                setSize(getSize() - 1);
-
-            }
+        for (int j = i; j < size; j++) {
+            this.tracks[i] = this.tracks[i + 1];
         }
-        setTracks(tracks1);
 
     }
 
@@ -160,11 +151,10 @@ class PlayList {
      * is negative or too big for this list, does nothing.
      */
     public void remove(String title) {
-        for (int i = 0; i < getTracks().length; i++) {
-            if (getTracks()[i] != null) {
-                if (getTracks()[i].getTitle().equals(title)) {
-                    remove(i);
-                }
+        for (int i = 0; i < size; i++) {
+            if (getTracks()[i].getTitle().equals(title)) {
+                remove(i);
+
             }
         }
     }
