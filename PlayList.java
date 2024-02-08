@@ -79,7 +79,7 @@ class PlayList {
      * Removes the last track from this list. If the list is empty, does nothing.
      */
     public void removeLast() {
-        if (getTracks()[getSize() - 1] != null) {
+        if (getSize()>0) {
             remove(getSize() - 1);
         }
     }
@@ -162,7 +162,7 @@ class PlayList {
      * Removes the first track from this list. If the list is empty, does nothing.
      */
     public void removeFirst() {
-        if (getTracks()[0] != null) {
+        if (getSize()>0) {
             remove(0);
         }
     }
