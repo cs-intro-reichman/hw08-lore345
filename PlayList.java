@@ -150,11 +150,16 @@ class PlayList {
      * does nothing and returns -1.
      */
     public void remove(int i) {
-        if (i < size && i >= 0) {
-            for (int j = i; j < size - 1; j++) {
-                this.tracks[j] = this.tracks[j + 1];
+        if (this.size != 0 && i > 0 && i < this.size) {
+            if (i == this.size - 1) {
+                this.tracks[i] = null;
             }
-            size--;
+            else {
+                for (int j = i; j < this.size - 1; j++) {
+                    this.tracks[j] = this.tracks[j+1];
+                }
+            }
+            this.size--;
         }
     }
 
