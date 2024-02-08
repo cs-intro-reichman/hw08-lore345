@@ -142,6 +142,7 @@ class PlayList {
         for (int j = i; j < size-1; j++) {
             this.tracks[j] = this.tracks[j + 1];
         }
+        size--;
 
     }
 
