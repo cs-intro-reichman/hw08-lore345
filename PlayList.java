@@ -73,7 +73,7 @@ class PlayList {
      */
     //// For an efficient implementation, use StringBuilder.
     public String toString() {
-        StringBuilder sb = new  StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append("\n");
         for (int i = 0; i < size; i++) {
             sb.append(tracks[i].toString());
@@ -207,15 +207,15 @@ class PlayList {
      * If start is negative or greater than size - 1, returns -1.
      */
     private int minIndex(int start) {
-        int shortDur=1000000000;
-        int idx=0;
+        int shortDur = 1000000000;
+        int idx = 0;
         if (start < 0 || start > size - 1) {
             return -1;
         }
-        for (int i =start; i <size ; i++) {
-            if (tracks[i].getDuration()<shortDur){
-                shortDur=tracks[i].getDuration();
-                idx=i;
+        for (int i = start; i < size; i++) {
+            if (tracks[i].getDuration() < shortDur) {
+                shortDur = tracks[i].getDuration();
+                idx = i;
             }
 
         }
@@ -227,7 +227,7 @@ class PlayList {
      * If the list is empty, returns null.
      */
     public String titleOfShortestTrack() {
-        if (size==0){
+        if (size == 0) {
             return null;
         }
         return tracks[minIndex(0)].getTitle();
@@ -240,8 +240,14 @@ class PlayList {
      * the list on which it was called (this list).
      */
     public void sortedInPlace() {
-        // Uses the selection sort algorithm,
-        // calling the minIndex method in each iteration.
-        //// replace this statement with your code
+        for (int i = 0; i < size; i++) {
+            int shortIdx = minIndex(i);
+            Track temp = tracks[i];
+            tracks[i] = tracks[shortIdx];
+            tracks[shortIdx] = temp;
+            // Uses the selection sort algorithm,
+            // calling the minIndex method in each iteration.
+            //// replace this statement with your code
+        }
     }
 }
