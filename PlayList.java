@@ -72,10 +72,15 @@ class PlayList {
      * Returns the data of this list, as a string. Each track appears in a separate line.
      */
     //// For an efficient implementation, use StringBuilder.
-        public String toString() {
-
-            return null;
+    public String toString() {
+        StringBuilder sb = new  StringBuilder();
+        sb.append("\n");
+        for (int i = 0; i < size; i++) {
+            sb.append(tracks[i].toString());
+            sb.append("\n");
         }
+        return sb.toString();
+    }
 
 
     /**
@@ -83,7 +88,7 @@ class PlayList {
      */
     public void removeLast() {
         if (getSize() > 0) {
-            tracks[size-1]=null;
+            tracks[size - 1] = null;
             size--;
         }
     }
@@ -145,7 +150,7 @@ class PlayList {
      * does nothing and returns -1.
      */
     public void remove(int i) {
-        if (i<size&&i>=0&&size!=0) {
+        if (i < size && i >= 0) {
             for (int j = i; j < size - 1; j++) {
                 this.tracks[j] = this.tracks[j + 1];
             }
@@ -159,11 +164,9 @@ class PlayList {
      * is negative or too big for this list, does nothing.
      */
     public void remove(String title) {
-        for (int i = 0; i < size; i++) {
-            if (getTracks()[i].getTitle().equals(title)) {
-                remove(i);
-
-            }
+        int idx = indexOf(title);
+        if (idx != -1 && this.size != 0 && idx < this.size) {
+            remove(idx);
         }
     }
 
@@ -184,11 +187,11 @@ class PlayList {
     public void add(PlayList other) {
         int totalSize = size + other.getSize();
 
-        if ( totalSize<=maxSize) {
+        if (totalSize <= maxSize) {
 
             int count = 0;
             for (int i = size; i < totalSize; i++) {
-              this.tracks[i]=other.getTracks()[count];
+                this.tracks[i] = other.getTracks()[count];
                 count++;
             }
             setSize(totalSize);
@@ -204,8 +207,19 @@ class PlayList {
      * If start is negative or greater than size - 1, returns -1.
      */
     private int minIndex(int start) {
-        //// replace the following statement with your code
-        return 0;
+        int shortDur=1000000000;
+        int idx=0;
+        if (start < 0 || start > size - 1) {
+            return -1;
+        }
+        for (int i =start; i <size ; i++) {
+            if (tracks[i].getDuration()<shortDur){
+                shortDur=tracks[i].getDuration();
+                idx=i;
+            }
+
+        }
+        return idx;
     }
 
     /**
@@ -213,6 +227,9 @@ class PlayList {
      * If the list is empty, returns null.
      */
     public String titleOfShortestTrack() {
+        if (size==0){
+            return null;
+        }
         return tracks[minIndex(0)].getTitle();
     }
 
